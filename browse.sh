@@ -6,6 +6,7 @@
 set -o pipefail
 
 BROWSE_PORT="${BROWSE_PORT:-8080}"
+BROWSE_HOST="${BROWSE_HOST:localhost}"
 
 rm -f -- graphstore/* tables/*
 mkdir -p graphstore tables
@@ -17,5 +18,5 @@ entrystream --read_json \
 write_tables -graphstore graphstore -out=tables
 
 http_server -serving_table tables \
-  -public_resources="/home/ksurent/kythe/kythe/web/ui" \
-  -listen="localhost:${BROWSE_PORT}"
+  -public_resources="${HOME}/kythe/kythe/web/ui" \
+  -listen="${BROWSE_HOST}:${BROWSE_PORT}"
